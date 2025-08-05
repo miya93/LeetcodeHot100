@@ -92,7 +92,7 @@ class Solution:
     输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
     Solution：哈希表
-    时间复杂度：时间复杂度：O(nklogk)，其中 n 是 strs 中的字符串的数量，k 是 strs 中的字符串的的最大长度。需要遍历 n 个字符串，对于每个字符串，需要 O(klogk) 的时间进行排序以及 O(1) 的时间更新哈希表，因此总时间复杂度是 O(nklogk)
+    时间复杂度：O(nklogk)，其中 n 是 strs 中的字符串的数量，k 是 strs 中的字符串的的最大长度。需要遍历 n 个字符串，对于每个字符串，需要 O(klogk) 的时间进行排序以及 O(1) 的时间更新哈希表，因此总时间复杂度是 O(nklogk)
     空间复杂度：O(nk)，其中 n 是 strs 中的字符串的数量，k 是 strs 中的字符串的的最大长度。需要用哈希表存储全部字符串
     """
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
@@ -115,6 +115,31 @@ class Solution:
             strsDict[key].append(s)
         return list(strsDict.values())
 
+    """
+    最长连续序列
+    给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
+    示例 1：
+    输入：nums = [100,4,200,1,3,2]
+    输出：4
+    解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+    Solution：哈希表
+    时间复杂度：O(n)，其中 n 为数组的长度
+    空间复杂度：O(n)。哈希表存储数组中所有的数需要 O(n) 的空间。
+    """
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numsSet = set(nums)
+        ans = 0
+        if len(numsSet) <= 1:
+            return len(numsSet)
+        for num in numsSet:
+            length = 1
+            if num - 1 in numsSet:
+                continue
+            while (num + length) in numsSet:
+                length += 1
+            ans = max(length, ans)
+        return ans
+
 if __name__ == '__main__':
     sol = Solution()
     print(sol.lengthOfLongestSubstring("abcabcbb"))
@@ -122,3 +147,5 @@ if __name__ == '__main__':
     print(sol.lengthOfLongestSubstring("pwwkeww"))
     print(sol.lengthAndStrOfLongestSubstring("pwwkeww"))
     print(sol.twoSum([2,7,11,15],9))
+    print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+    print(sol.longestConsecutive([9,1,4,7,3,-1,0,5,8,-1,6]))
