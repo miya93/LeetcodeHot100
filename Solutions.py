@@ -132,7 +132,9 @@ class Solution:
         if len(numsSet) <= 1:
             return len(numsSet)
         for num in numsSet:
+            #序列长度
             length = 1
+            #存在比当前数小的数，可直接跳过
             if num - 1 in numsSet:
                 continue
             while (num + length) in numsSet:
@@ -147,6 +149,11 @@ class Solution:
     输入: nums = [0,1,0,3,12]
     输出: [1,3,12,0,0]
     Solution：双指针
+    使用双指针，左指针指向当前已经处理好的序列的尾部，右指针指向待处理序列的头部。
+    右指针不断向右移动，每次右指针指向非零数，则将左右指针对应的数交换，同时左指针右移。
+    注意到以下性质：
+    左指针左边均为非零数；
+    右指针左边直到左指针处均为零
     时间复杂度：O(n)，其中 n 为序列长度。每个位置至多被遍历两次
     空间复杂度：O(1)。只需要常数的空间存放若干变量。
     """
@@ -155,12 +162,36 @@ class Solution:
         left = 0
         right = 0
         while right < n:
+            #当当前数字为0，left不移动，使得left左边都是非0数，右边到右指针是0
             if nums[right] != 0:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1
             right += 1
         print(nums)
 
+    """
+    盛最多水的容器
+    给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+    找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+    返回容器可以储存的最大水量
+    示例 1：
+    输入: [1,8,6,2,5,4,8,3,7]
+    输出: 49 
+    Solution：双指针
+    时间复杂度：O(N)，双指针总计最多遍历整个数组一次
+    空间复杂度：O(1)，只需要额外的常数级别的空间
+    """
+    def maxArea(self, height: List[int]) -> int:
+        left = 0
+        right = len(height) - 1
+        max_area = 0 #最大的储水量
+        while left < right:
+            max_area = max(max_area, min(height[left], height[right]) * (right - left))
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
+        return max_area
 
 if __name__ == '__main__':
     sol = Solution()
