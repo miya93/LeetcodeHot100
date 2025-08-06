@@ -2,7 +2,8 @@ import collections
 from typing import List
 
 
-class Solution:
+#题目主要涉及哈希表与双指针
+class HashTableAndDualPointer:
     """
     无重复字符的最长子串
     给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度。
@@ -13,7 +14,6 @@ class Solution:
     Solution：滑动窗口 + 哈希集合 （判断是否有重复的字符）
     时间复杂度：O(n)：只需遍历字符串一次，n 为字符串长度
     空间复杂度：O(∣Σ∣)，其中 Σ 表示字符集（即字符串中可以出现的字符），∣Σ∣ 表示字符集的大小
-
     """
     def lengthOfLongestSubstring(self, s: str) -> int:
         #哈希集合，记录每个字符是否出现过
@@ -194,7 +194,7 @@ class Solution:
         return max_area
 
 if __name__ == '__main__':
-    sol = Solution()
+    sol = HashTableAndDualPointer()
     print(sol.lengthOfLongestSubstring("abcabcbb"))
     print(sol.lengthAndStrOfLongestSubstring("abcabcbb"))
     print(sol.lengthOfLongestSubstring("pwwkeww"))
