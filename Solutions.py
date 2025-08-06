@@ -140,6 +140,28 @@ class Solution:
             ans = max(length, ans)
         return ans
 
+    """
+    移动零
+    给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序
+    示例 1：
+    输入: nums = [0,1,0,3,12]
+    输出: [1,3,12,0,0]
+    Solution：双指针
+    时间复杂度：O(n)，其中 n 为序列长度。每个位置至多被遍历两次
+    空间复杂度：O(1)。只需要常数的空间存放若干变量。
+    """
+    def moveZeroes(self, nums: List[int]) -> None:
+        n = len(nums)
+        left = 0
+        right = 0
+        while right < n:
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+            right += 1
+        print(nums)
+
+
 if __name__ == '__main__':
     sol = Solution()
     print(sol.lengthOfLongestSubstring("abcabcbb"))
@@ -149,3 +171,4 @@ if __name__ == '__main__':
     print(sol.twoSum([2,7,11,15],9))
     print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
     print(sol.longestConsecutive([9,1,4,7,3,-1,0,5,8,-1,6]))
+    print(sol.moveZeroes([0,1,0,3,12]))
