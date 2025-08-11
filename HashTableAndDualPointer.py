@@ -193,13 +193,56 @@ class HashTableAndDualPointer:
                 right -= 1
         return max_area
 
+
+    """
+    三数之和
+    给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，
+    同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组
+    示例 1：
+    输入：nums = [-1,0,1,2,-1,-4]  [-4,-1,-1,0,1,2]
+    输出：[[-1,-1,2],[-1,0,1]] 
+    Solution：排序 + 双指针
+    时间复杂度：O(N2)，其中 N 是数组 nums 的长度。
+    空间复杂度：O(logN)。我们忽略存储答案的空间，额外的排序的空间复杂度为 O(logN)
+    """
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        n= len(nums)
+        nums.sort()
+        ans = list()
+        if nums[0] > 0 or nums[-1] < 0:
+            return []
+        if len(nums) < 3:
+            return []
+        if len(nums) == 3:
+            if sum(nums) == 0:
+                return [nums]
+            return []
+        for first in range(n):
+            target = -nums[first]
+            third = n - 1
+            if first > 0 and nums[first-1] == nums[first]:
+                continue
+            if nums[first] > 0 :
+                break
+            for second in range(first+1, n):
+                if second > first + 1 and nums[second - 1] == nums[second]:
+                    continue
+                while third > second and nums[second] + nums[third] > target:
+                    third -= 1
+                if third == second:
+                    break
+                if nums[second] + nums[third] == target:
+                    ans.append([nums[first], nums[second], nums[third]])
+        return ans
+
 if __name__ == '__main__':
     sol = HashTableAndDualPointer()
-    print(sol.lengthOfLongestSubstring("abcabcbb"))
-    print(sol.lengthAndStrOfLongestSubstring("abcabcbb"))
-    print(sol.lengthOfLongestSubstring("pwwkeww"))
-    print(sol.lengthAndStrOfLongestSubstring("pwwkeww"))
-    print(sol.twoSum([2,7,11,15],9))
-    print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
-    print(sol.longestConsecutive([9,1,4,7,3,-1,0,5,8,-1,6]))
-    print(sol.moveZeroes([0,1,0,3,12]))
+    # print(sol.lengthOfLongestSubstring("abcabcbb"))
+    # print(sol.lengthAndStrOfLongestSubstring("abcabcbb"))
+    # print(sol.lengthOfLongestSubstring("pwwkeww"))
+    # print(sol.lengthAndStrOfLongestSubstring("pwwkeww"))
+    # print(sol.twoSum([2,7,11,15],9))
+    # print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+    # print(sol.longestConsecutive([9,1,4,7,3,-1,0,5,8,-1,6]))
+    # print(sol.moveZeroes([0,1,0,3,12]))
+    print(sol.threeSum([-1,0,1,2,-1,-4] ))
