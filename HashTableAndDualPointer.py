@@ -202,7 +202,7 @@ class HashTableAndDualPointer:
     输入：nums = [-1,0,1,2,-1,-4]  [-4,-1,-1,0,1,2]
     输出：[[-1,-1,2],[-1,0,1]] 
     Solution：排序 + 双指针
-    时间复杂度：O(N2)，其中 N 是数组 nums 的长度。
+    时间复杂度：O(N^2)，其中 N 是数组 nums 的长度。
     空间复杂度：O(logN)。我们忽略存储答案的空间，额外的排序的空间复杂度为 O(logN)
     """
     def threeSum(self, nums: List[int]) -> List[List[int]]:
